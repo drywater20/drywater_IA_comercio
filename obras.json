@@ -1,0 +1,308 @@
+[
+  {
+    "id": "obra_1",
+    "imagen": "imagenes/obra1.jpg",
+    "titulo": {
+      "es": "Obra Marina 1",
+      "en": "Marine Art 1",
+      "fr": "Art Marin 1",
+      "ja": "海洋アート 1"
+    },
+    "descripcion": {
+      "es": "Una representación artística del mundo submarino.",
+      "en": "An artistic representation of the underwater world.",
+      "fr": "Une représentation artistique du monde sous-marin.",
+      "ja": "海底世界の芸術的な表現です。"
+    },
+    "estilo": "peces"
+  },
+  {
+    "id": "obra_2",
+    "imagen": "imagenes/obra10.jpg",
+    "titulo": {
+      "es": "Profundidades 2",
+      "en": "Depths 2",
+      "fr": "Profondeurs 2",
+      "ja": "深海 2"
+    },
+    "descripcion": {
+      "es": "Inspirado en especies marinas poco conocidas.",
+      "en": "Inspired by lesser-known marine species.",
+      "fr": "Inspiré par des espèces marines méconnues.",
+      "ja": "あまり知られていない海洋生物にインスパイアされました。"
+    },
+    "estilo": "calamares"
+  },
+  {
+    "id": "obra_3",
+    "imagen": "imagenes/obra11.jpg",
+    "titulo": {
+      "es": "Criatura del Abismo 3",
+      "en": "Abyss Creature 3",
+      "fr": "Créature de l'Abîme 3",
+      "ja": "深海の生き物 3"
+    },
+    "descripcion": {
+      "es": "Una representación artística del mundo submarino.",
+      "en": "An artistic representation of the underwater world.",
+      "fr": "Une représentation artistique du monde sous-marin.",
+      "ja": "海底世界の芸術的な表現です。"
+    },
+    "estilo": "varios"
+  },
+  {
+    "id": "obra_4",
+    "imagen": "imagenes/obra12.jpg",
+    "titulo": {
+      "es": "Reflejos del Océano 4",
+      "en": "Ocean Reflections 4",
+      "fr": "Reflets de l'Océan 4",
+      "ja": "海の反射 4"
+    },
+    "descripcion": {
+      "es": "Inspirado en especies marinas poco conocidas.",
+      "en": "Inspired by lesser-known marine species.",
+      "fr": "Inspiré par des espèces marines méconnues.",
+      "ja": "あまり知られていない海洋生物にインスパイアされました。"
+    },
+    "estilo": "otros"
+  },
+  {
+    "id": "obra_5",
+    "imagen": "imagenes/obra13.jpg",
+    "titulo": {
+      "es": "Obra Marina 5",
+      "en": "Marine Art 5",
+      "fr": "Art Marin 5",
+      "ja": "海洋アート 5"
+    },
+    "descripcion": {
+      "es": "Una representación artística del mundo submarino.",
+      "en": "An artistic representation of the underwater world.",
+      "fr": "Une représentation artistique du monde sous-marin.",
+      "ja": "海底世界の芸術的な表現です。"
+    },
+    "estilo": "peces"
+  },
+  {
+    "id": "obra_6",
+    "imagen": "imagenes/obra14.jpg",
+    "titulo": {
+      "es": "Profundidades 6",
+      "en": "Depths 6",
+      "fr": "Profondeurs 6",
+      "ja": "深海 6"
+    },
+    "descripcion": {
+      "es": "Inspirado en especies marinas poco conocidas.",
+      "en": "Inspired by lesser-known marine species.",
+      "fr": "Inspiré par des espèces marines méconnues.",
+      "ja": "あまり知られていない海洋生物にインスパイアされました。"
+    },
+    "estilo": "calamares"
+  },
+  {
+    "id": "obra_7",
+    "imagen": "imagenes/obra15.jpg",
+    "titulo": {
+      "es": "Criatura del Abismo 7",
+      "en": "Abyss Creature 7",
+      "fr": "Créature de l'Abîme 7",
+      "ja": "深海の生き物 7"
+    },
+    "descripcion": {
+      "es": "Una representación artística del mundo submarino.",
+      "en": "An artistic representation of the underwater world.",
+      "fr": "Une représentation artistique du monde sous-marin.",
+      "ja": "海底世界の芸術的な表現です。"
+    },
+    "estilo": "varios"
+  },
+  {
+    "id": "obra_8",
+    "imagen": "imagenes/obra16.jpg",
+    "titulo": {
+      "es": "Reflejos del Océano 8",
+      "en": "Ocean Reflections 8",
+      "fr": "Reflets de l'Océan 8",
+      "ja": "海の反射 8"
+    },
+    "descripcion": {
+      "es": "Inspirado en especies marinas poco conocidas.",
+      "en": "Inspired by lesser-known marine species.",
+      "fr": "Inspiré par des espèces marines méconnues.",
+      "ja": "あまり知られていない海洋生物にインスパイアされました。"
+    },
+    "estilo": "otros"
+  },
+  {
+    "id": "obra_9",
+    "imagen": "imagenes/obra17.jpg",
+    "titulo": {
+      "es": "Obra Marina 9",
+      "en": "Marine Art 9",
+      "fr": "Art Marin 9",
+      "ja": "海洋アート 9"
+    },
+    "descripcion": {
+      "es": "Una representación artística del mundo submarino.",
+      "en": "An artistic representation of the underwater world.",
+      "fr": "Une représentation artistique du monde sous-marin.",
+      "ja": "海底世界の芸術的な表現です。"
+    },
+    "estilo": "peces"
+  },
+  {
+    "id": "obra_10",
+    "imagen": "imagenes/obra18.jpg",
+    "titulo": {
+      "es": "Profundidades 10",
+      "en": "Depths 10",
+      "fr": "Profondeurs 10",
+      "ja": "深海 10"
+    },
+    "descripcion": {
+      "es": "Inspirado en especies marinas poco conocidas.",
+      "en": "Inspired by lesser-known marine species.",
+      "fr": "Inspiré par des espèces marines méconnues.",
+      "ja": "あまり知られていない海洋生物にインスパイアされました。"
+    },
+    "estilo": "calamares"
+  },
+  {
+    "id": "obra_11",
+    "imagen": "imagenes/obra2.jpg",
+    "titulo": {
+      "es": "Criatura del Abismo 11",
+      "en": "Abyss Creature 11",
+      "fr": "Créature de l'Abîme 11",
+      "ja": "深海の生き物 11"
+    },
+    "descripcion": {
+      "es": "Una representación artística del mundo submarino.",
+      "en": "An artistic representation of the underwater world.",
+      "fr": "Une représentation artistique du monde sous-marin.",
+      "ja": "海底世界の芸術的な表現です。"
+    },
+    "estilo": "varios"
+  },
+  {
+    "id": "obra_12",
+    "imagen": "imagenes/obra3.jpg",
+    "titulo": {
+      "es": "Reflejos del Océano 12",
+      "en": "Ocean Reflections 12",
+      "fr": "Reflets de l'Océan 12",
+      "ja": "海の反射 12"
+    },
+    "descripcion": {
+      "es": "Inspirado en especies marinas poco conocidas.",
+      "en": "Inspired by lesser-known marine species.",
+      "fr": "Inspiré par des espèces marines méconnues.",
+      "ja": "あまり知られていない海洋生物にインスパイアされました。"
+    },
+    "estilo": "otros"
+  },
+  {
+    "id": "obra_13",
+    "imagen": "imagenes/obra4.jpg",
+    "titulo": {
+      "es": "Obra Marina 13",
+      "en": "Marine Art 13",
+      "fr": "Art Marin 13",
+      "ja": "海洋アート 13"
+    },
+    "descripcion": {
+      "es": "Una representación artística del mundo submarino.",
+      "en": "An artistic representation of the underwater world.",
+      "fr": "Une représentation artistique du monde sous-marin.",
+      "ja": "海底世界の芸術的な表現です。"
+    },
+    "estilo": "peces"
+  },
+  {
+    "id": "obra_14",
+    "imagen": "imagenes/obra5.jpg",
+    "titulo": {
+      "es": "Profundidades 14",
+      "en": "Depths 14",
+      "fr": "Profondeurs 14",
+      "ja": "深海 14"
+    },
+    "descripcion": {
+      "es": "Inspirado en especies marinas poco conocidas.",
+      "en": "Inspired by lesser-known marine species.",
+      "fr": "Inspiré par des espèces marines méconnues.",
+      "ja": "あまり知られていない海洋生物にインスパイアされました。"
+    },
+    "estilo": "calamares"
+  },
+  {
+    "id": "obra_15",
+    "imagen": "imagenes/obra6.jpg",
+    "titulo": {
+      "es": "Criatura del Abismo 15",
+      "en": "Abyss Creature 15",
+      "fr": "Créature de l'Abîme 15",
+      "ja": "深海の生き物 15"
+    },
+    "descripcion": {
+      "es": "Una representación artística del mundo submarino.",
+      "en": "An artistic representation of the underwater world.",
+      "fr": "Une représentation artistique du monde sous-marin.",
+      "ja": "海底世界の芸術的な表現です。"
+    },
+    "estilo": "varios"
+  },
+  {
+    "id": "obra_16",
+    "imagen": "imagenes/obra7.jpg",
+    "titulo": {
+      "es": "Reflejos del Océano 16",
+      "en": "Ocean Reflections 16",
+      "fr": "Reflets de l'Océan 16",
+      "ja": "海の反射 16"
+    },
+    "descripcion": {
+      "es": "Inspirado en especies marinas poco conocidas.",
+      "en": "Inspired by lesser-known marine species.",
+      "fr": "Inspiré par des espèces marines méconnues.",
+      "ja": "あまり知られていない海洋生物にインスパイアされました。"
+    },
+    "estilo": "otros"
+  },
+  {
+    "id": "obra_17",
+    "imagen": "imagenes/obra8.jpg",
+    "titulo": {
+      "es": "Obra Marina 17",
+      "en": "Marine Art 17",
+      "fr": "Art Marin 17",
+      "ja": "海洋アート 17"
+    },
+    "descripcion": {
+      "es": "Una representación artística del mundo submarino.",
+      "en": "An artistic representation of the underwater world.",
+      "fr": "Une représentation artistique du monde sous-marin.",
+      "ja": "海底世界の芸術的な表現です。"
+    },
+    "estilo": "peces"
+  },
+  {
+    "id": "obra_18",
+    "imagen": "imagenes/obra9.jpg",
+    "titulo": {
+      "es": "Profundidades 18",
+      "en": "Depths 18",
+      "fr": "Profondeurs 18",
+      "ja": "深海 18"
+    },
+    "descripcion": {
+      "es": "Inspirado en especies marinas poco conocidas.",
+      "en": "Inspired by lesser-known marine species.",
+      "fr": "Inspiré par des espèces marines méconnues.",
+      "ja": "あまり知られていない海洋生物にインスパイアされました。"
+    },
+    "estilo": "calamares"
+  }
+]

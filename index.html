@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Drywater Art | Tienda de Arte Marino Digital</title>
+  <meta name="description" content="Colección exclusiva de arte marino generado por inteligencia artificial. Compra impresiones en lienzo, papel fotográfico o descargas digitales. Envíos a todo el mundo.">
+  <meta name="keywords" content="arte marino, arte digital, impresiones de arte, IA arte, arte oceánico, arte abstracto">
+  <meta name="author" content="Drywater Studio">
+  
+  <!-- Open Graph para redes sociales -->
+  <meta property="og:title" content="Drywater Art - Arte Marino por IA">
+  <meta property="og:description" content="Colección de arte marino digital. Compra impresiones únicas generadas por inteligencia artificial.">
+  <meta property="og:image" content="https://drywater-ia.netlify.app/assets/og-image.jpg">
+  <meta property="og:url" content="https://drywater-ia.netlify.app/">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans&display=swap" rel="stylesheet">
+  
+  <!-- Snipcart para e-commerce -->
+  <script src="https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.js"></script>
+  <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.css" />
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- Botón flotante del carrito -->
+  <div class="snipcart-summary snipcart-checkout">
+    🛒 <span class="snipcart-total-price">Carrito (0)</span>
+  </div>
+
+  <header>
+    <h1>Galería de Arte</h1>
+    <p>Disfruta de una colección única de arte marino.</p>
+  </header>
+
+  <!-- Selector de idioma -->
+  <div class="language-selector">
+    <label>Idioma: </label>
+    <select id="lang-select" onchange="changeLanguage()">
+      <option value="es">Español</option>
+      <option value="en">English</option>
+      <option value="fr">Français</option>
+      <option value="ja">日本語</option>
+    </select>
+  </div>
+
+  <!-- Filtros -->
+  <div class="filters">
+    <label>Filtrar por estilo: </label>
+    <select id="style-filter" onchange="filterProducts()">
+      <option value="all">todos</option>
+      <option value="abstract">abstracto</option>
+      <option value="realist">realista</option>
+      <option value="minimal">minimal</option>
+      <option value="surreal">surrealista</option>
+    </select>
+  </div>
+
+  <!-- Galería de productos -->
+  <main id="gallery">
+    <!-- Las obras se cargarán dinámicamente desde obras.json -->
+  </main>
+
+  <!-- Lightbox para zoom -->
+  <div id="lightbox" class="lightbox">
+    <span class="close-btn" onclick="closeLightbox()">&times;</span>
+    <span class="nav-btn prev" onclick="changeImage(-1)">&#10094;</span>
+    <img id="lightbox-img" class="lightbox-content">
+    <span class="nav-btn next" onclick="changeImage(1)">&#10095;</span>
+  </div>
+
+  <!-- Formulario de comentarios -->
+  <section class="comments-section">
+    <h2>Comentarios:</h2>
+    <textarea id="comment" placeholder="Escribe tu comentario aquí..."></textarea>
+    <button onclick="submitComment()">Enviar</button>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Drywater Studio. Todos los derechos reservados.</p>
+    <p>Arte generado por IA • Envíos a todo el mundo</p>
+  </footer>
+
+  <!-- Snipcart (reemplaza YOUR_PUBLIC_KEY con tu clave real) -->
+  <div hidden id="snipcart" data-api-key="YOUR_PUBLIC_KEY_HERE"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
