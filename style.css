@@ -101,15 +101,9 @@ header p {
 }
 
 .product-info h3 {
+  color: #005f73;
   margin: 10px 0 5px;
   font-size: 1.1rem;
-  color: #005f73;
-}
-
-.product-info .price {
-  color: #0077b6;
-  font-weight: bold;
-  margin: 5px 0;
 }
 
 .product-info .description {

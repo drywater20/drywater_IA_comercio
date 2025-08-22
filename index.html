@@ -51,10 +51,10 @@
     <label id="filter-label">Filtrar por estilo:</label>
     <select id="style-filter">
       <option value="all">todos</option>
-      <option value="abstract">abstracto</option>
-      <option value="realist">realista</option>
-      <option value="minimal">minimal</option>
-      <option value="surreal">surrealista</option>
+      <option value="peces">peces</option>
+      <option value="calamares">calamares</option>
+      <option value="varios">varios</option>
+      <option value="otros">otros</option>
     </select>
   </div>
 
@@ -63,7 +63,7 @@
     <!-- Las obras se cargarán dinámicamente -->
   </main>
 
-  <!-- Lightbox para zoom con título, descripción y botón -->
+  <!-- Lightbox para zoom con título y descripción -->
   <div id="lightbox" class="lightbox">
     <span class="close-btn" onclick="closeLightbox()">&times;</span>
     <span class="nav-btn prev" onclick="changeImage(-1)">&#10094;</span>
@@ -75,7 +75,7 @@
         <button class="snipcart-add-item lightbox-add"
           data-item-id=""
           data-item-name=""
-          data-item-price=""
+          data-item-price="25.00"
           data-item-image=""
           data-item-url="/"
           data-item-description="">Añadir al carrito</button>

@@ -1,60 +1,9 @@
-// === Traducciones por idioma ===
-const traducciones = {
-  es: {
-    title: "Galería de Arte",
-    subtitle: "Disfruta de una colección única de arte marino.",
-    langLabel: "Idioma:",
-    filterLabel: "Filtrar por estilo:",
-    commentTitle: "Comentarios:",
-    sendButton: "Enviar"
-  },
-  en: {
-    title: "Art Gallery",
-    subtitle: "Enjoy a unique collection of marine art.",
-    langLabel: "Language:",
-    filterLabel: "Filter by style:",
-    commentTitle: "Comments:",
-    sendButton: "Send"
-  },
-  fr: {
-    title: "Galerie d'Art",
-    subtitle: "Profitez d'une collection unique d'art marin.",
-    langLabel: "Langue:",
-    filterLabel: "Filtrer par style:",
-    commentTitle: "Commentaires:",
-    sendButton: "Envoyer"
-  },
-  ja: {
-    title: "アートギャラリー",
-    subtitle: "ユニークなマリンアートのコレクションをお楽しみください。",
-    langLabel: "言語:",
-    filterLabel: "スタイルでフィルター：",
-    commentTitle: "コメント：",
-    sendButton: "送信"
-  }
-};
-
-// === Cambiar idioma y guardar selección ===
-function changeLanguage() {
-  const lang = document.getElementById('lang-select').value;
-  const t = traducciones[lang];
-
-  if (!t) return;
-
-  document.getElementById('main-title').textContent = t.title;
-  document.getElementById('main-subtitle').textContent = t.subtitle;
-  document.getElementById('lang-label').textContent = t.langLabel;
-  document.getElementById('filter-label').textContent = t.filterLabel;
-  document.getElementById('comment-title').textContent = t.commentTitle;
-  document.getElementById('send-btn').textContent = t.sendButton;
-
-  localStorage.setItem('selected-lang', lang);
-}
-
-// === Cargar obras desde obras.json ===
+// === Variables globales ===
 let obras = [];
 let currentImageIndex = 0;
+let currentLang = 'es';
 
+// === Cargar obras desde obras.json ===
 async function cargarObras() {
   try {
     const response = await fetch('obras.json');
@@ -67,30 +16,56 @@ async function cargarObras() {
   }
 }
 
+// === Cambiar idioma ===
+function changeLanguage() {
+  const langSelect = document.getElementById('lang-select');
+  currentLang = langSelect.value;
+
+  // Textos de la interfaz por idioma
+  const translations = {
+    es: { title: "Galería de Arte", subtitle: "Disfruta de una colección única de arte marino.", filter: "Filtrar por estilo:", comments: "Comentarios:", send: "Enviar" },
+    en: { title: "Art Gallery", subtitle: "Enjoy a unique collection of marine art.", filter: "Filter by style:", comments: "Comments:", send: "Send" },
+    fr: { title: "Galerie d'Art", subtitle: "Profitez d'une collection unique d'art marin.", filter: "Filtrer par style :", comments: "Commentaires :", send: "Envoyer" },
+    ja: { title: "アートギャラリー", subtitle: "ユニークなマリンアートのコレクションをお楽しみください。", filter: "スタイルでフィルター：", comments: "コメント：", send: "送信" }
+  };
+
+  const t = translations[currentLang];
+  document.getElementById('main-title').textContent = t.title;
+  document.getElementById('main-subtitle').textContent = t.subtitle;
+  document.getElementById('filter-label').textContent = t.filter;
+  document.getElementById('comment-title').textContent = t.comments;
+  document.getElementById('send-btn').textContent = t.send;
+
+  // Volver a renderizar con el nuevo idioma
+  renderizarGaleria();
+}
+
 // === Renderizar galería de productos ===
 function renderizarGaleria() {
   const gallery = document.getElementById('gallery');
   gallery.innerHTML = '';
 
   obras.forEach((obra, index) => {
+    const titulo = obra.titulo[currentLang];
+    const descripcion = obra.descripcion[currentLang];
+
     const card = document.createElement('div');
     card.className = 'product-card';
     card.setAttribute('data-style', obra.estilo);
 
     card.innerHTML = `
-      <img src="${obra.imagen}" alt="${obra.titulo}" loading="lazy">
+      <img src="${obra.imagen}" alt="${titulo}" loading="lazy">
       <div class="product-info">
-        <h3>${obra.titulo}</h3>
-        <p class="price">Desde $${obra.precio?.toFixed(2) || '20.00'}</p>
-        <p class="description">${obra.descripcion || ''}</p>
+        <h3>${titulo}</h3>
+        <p class="description">${descripcion}</p>
       </div>
       <button class="snipcart-add-item"
-        data-item-id="${obra.id || obra.titulo}"
-        data-item-name="${obra.titulo}"
-        data-item-price="${obra.precio || 20}"
+        data-item-id="${obra.id}"
+        data-item-name="${titulo}"
+        data-item-price="25.00"
         data-item-image="${obra.imagen}"
         data-item-url="/"
-        data-item-description="${obra.descripcion || 'Arte marino generado por IA'}">
+        data-item-description="${descripcion}">
         Añadir al carrito
       </button>
     `;
@@ -100,7 +75,7 @@ function renderizarGaleria() {
   });
 }
 
-// === Lightbox: abrir, cambiar, actualizar info ===
+// === Lightbox: abrir, cambiar, actualizar ===
 function openLightbox(index) {
   currentImageIndex = index;
   actualizarLightbox();
@@ -118,55 +93,22 @@ function changeImage(direction) {
 
 function actualizarLightbox() {
   const obra = obras[currentImageIndex];
+  const titulo = obra.titulo[currentLang];
+  const descripcion = obra.descripcion[currentLang];
+
   document.getElementById('lightbox-img').src = obra.imagen;
-  document.getElementById('lightbox-title').textContent = obra.titulo;
-  document.getElementById('lightbox-desc').textContent = obra.descripcion || 'Sin descripción disponible.';
+  document.getElementById('lightbox-title').textContent = titulo;
+  document.getElementById('lightbox-desc').textContent = descripcion;
 
   const btn = document.querySelector('.lightbox-add');
-  btn.setAttribute('data-item-id', obra.id || obra.titulo);
-  btn.setAttribute('data-item-name', obra.titulo);
-  btn.setAttribute('data-item-price', obra.precio || 20);
+  btn.setAttribute('data-item-id', obra.id);
+  btn.setAttribute('data-item-name', titulo);
+  btn.setAttribute('data-item-price', '25.00');
   btn.setAttribute('data-item-image', obra.imagen);
-  btn.setAttribute('data-item-description', obra.descripcion || 'Arte marino generado por IA');
+  btn.setAttribute('data-item-description', descripcion);
 }
 
-// === Enviar comentario ===
-function submitComment() {
-  const comment = document.getElementById('comment').value;
-  if (comment.trim()) {
-    alert("Gracias por tu comentario. ¡Lo tendremos en cuenta!");
-    document.getElementById('comment').value = '';
-  } else {
-    alert("Por favor, escribe un comentario.");
-  }
-}
-
-// === Inicializar todo al cargar ===
-document.addEventListener('DOMContentLoaded', () => {
-  const savedLang = localStorage.getItem('selected-lang') || 'es';
-  document.getElementById('lang-select').value = savedLang;
-  changeLanguage();
-
-  document.getElementById('lang-select').addEventListener('change', changeLanguage);
-  document.getElementById('style-filter').addEventListener('change', filterProducts);
-
-  cargarObras();
-
-  document.addEventListener('keydown', (e) => {
-    const lightbox = document.getElementById('lightbox');
-    if (lightbox.style.display === 'flex' || lightbox.style.display === 'block') {
-      if (e.key === 'Escape') closeLightbox();
-      if (e.key === 'ArrowRight') changeImage(1);
-      if (e.key === 'ArrowLeft') changeImage(-1);
-    }
-  });
-
-  document.addEventListener('snipcart.ready', () => {
-    console.log('✅ Snipcart está listo');
-  });
-});
-
-// === Filtrar productos ===
+// === Filtrar productos por estilo ===
 function filterProducts() {
   const filter = document.getElementById('style-filter').value;
   const cards = document.querySelectorAll('.product-card');
@@ -180,3 +122,44 @@ function filterProducts() {
     }
   });
 }
+
+// === Enviar comentario ===
+function submitComment() {
+  const comment = document.getElementById('comment').value;
+  if (comment.trim()) {
+    alert("Gracias por tu comentario. ¡Lo tendremos en cuenta!");
+    document.getElementById('comment').value = '';
+  } else {
+    alert("Por favor, escribe un comentario.");
+  }
+}
+
+// === Inicialización al cargar ===
+document.addEventListener('DOMContentLoaded', () => {
+  const savedLang = localStorage.getItem('selected-lang') || 'es';
+  document.getElementById('lang-select').value = savedLang;
+  currentLang = savedLang;
+  changeLanguage();
+
+  // Eventos
+  document.getElementById('lang-select').addEventListener('change', changeLanguage);
+  document.getElementById('style-filter').addEventListener('change', filterProducts);
+
+  // Cargar obras
+  cargarObras();
+
+  // Navegación con teclado
+  document.addEventListener('keydown', (e) => {
+    const lightbox = document.getElementById('lightbox');
+    if (lightbox.style.display === 'flex') {
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') changeImage(1);
+      if (e.key === 'ArrowLeft') changeImage(-1);
+    }
+  });
+
+  // Snipcart
+  document.addEventListener('snipcart.ready', () => {
+    console.log('✅ Snipcart está listo');
+  });
+});
