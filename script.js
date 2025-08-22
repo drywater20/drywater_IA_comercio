@@ -73,7 +73,8 @@ function changeLanguage() {
       optionVarios: "varios",
       optionOtros: "otros",
       comments: "Comentarios:",
-      send: "Enviar"
+      send: "Enviar",
+      speak: "Escuchar"
     },
     en: {
       title: "Art Gallery",
@@ -85,7 +86,8 @@ function changeLanguage() {
       optionVarios: "various",
       optionOtros: "others",
       comments: "Comments:",
-      send: "Send"
+      send: "Send",
+      speak: "Listen"
     },
     fr: {
       title: "Galerie d'Art",
@@ -97,7 +99,8 @@ function changeLanguage() {
       optionVarios: "divers",
       optionOtros: "autres",
       comments: "Commentaires :",
-      send: "Envoyer"
+      send: "Envoyer",
+      speak: "Écouter"
     },
     ja: {
       title: "アートギャラリー",
@@ -109,19 +112,22 @@ function changeLanguage() {
       optionVarios: "その他",
       optionOtros: "その他",
       comments: "コメント：",
-      send: "送信"
+      send: "送信",
+      speak: "聞く"
     }
   };
 
   const t = translations[currentLang];
-  // Actualizar textos (sin hacerlos clickeables)
+  // Actualizar textos
   if (document.getElementById('main-title')) document.getElementById('main-title').textContent = t.title;
   if (document.getElementById('main-subtitle')) document.getElementById('main-subtitle').textContent = t.subtitle;
   if (document.getElementById('filter-label')) document.getElementById('filter-label').textContent = t.filterLabel;
   if (document.getElementById('comment-title')) document.getElementById('comment-title').textContent = t.comments;
   if (document.getElementById('send-btn')) document.getElementById('send-btn').textContent = t.send;
+  // 🔥 Traducir el botón "Escuchar"
+  if (document.getElementById('speak-all')) document.getElementById('speak-all').textContent = t.speak;
 
-  // Actualizar opciones del filtro (sin hacerlas clickeables)
+  // Actualizar opciones del filtro
   if (document.getElementById('option-all')) document.getElementById('option-all').textContent = t.optionAll;
   if (document.getElementById('option-peces')) document.getElementById('option-peces').textContent = t.optionPeces;
   if (document.getElementById('option-calamares')) document.getElementById('option-calamares').textContent = t.optionCalamares;
@@ -170,7 +176,6 @@ function renderizarGaleria() {
     card.className = 'product-card';
     card.setAttribute('data-style', obra.estilo);
 
-    // 🔥 data-item-open-cart="true" hace que el carrito se abra
     card.innerHTML = `
       <img src="${obra.imagen}" alt="${titulo}" loading="lazy">
       <div class="product-info">
@@ -242,7 +247,6 @@ function actualizarLightbox() {
     btn.setAttribute('data-item-price', '25.00');
     btn.setAttribute('data-item-image', obra.imagen);
     btn.setAttribute('data-item-description', descripcion);
-    // 🔥 Asegurar que el botón del lightbox también abra el carrito
     btn.setAttribute('data-item-open-cart', 'true');
   }
 
@@ -264,18 +268,6 @@ function filterProducts() {
       card.style.display = 'none';
     }
   });
-}
-
-// === Enviar comentario ===
-function submitComment() {
-  const comment = document.getElementById('comment');
-  if (!comment) return;
-  if (comment.value.trim()) {
-    alert("Gracias por tu comentario. ¡Lo tendremos en cuenta!");
-    comment.value = '';
-  } else {
-    alert("Por favor, escribe un comentario.");
-  }
 }
 
 // === Inicialización al cargar ===

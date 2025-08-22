@@ -35,9 +35,9 @@
     <p id="main-subtitle">Disfruta de una colección única de arte marino.</p>
   </header>
 
-  <!-- Botón de escuchar todo -->
+  <!-- Botón de escuchar todo (con ID para traducción) -->
   <div style="text-align: center; margin: 10px 0;">
-    <button id="speak-all" style="padding: 8px 12px; background: #0077b6; color: white; border: none; border-radius: 6px; cursor: pointer;">Escuchar</button>
+    <button id="speak-all">Escuchar</button>
   </div>
 
   <!-- Selector de idioma -->
@@ -90,14 +90,15 @@
     <span class="nav-btn next" onclick="changeImage(1)">&#10095;</span>
   </div>
 
-  <!-- Formulario de comentarios (ahora con Formspree) -->
-<section class="comments-section">
-  <form action="https://formspree.io/f/xzzvngag" method="POST" style="text-align: center;">
-    <h2 id="comment-title">Comentarios:</h2>
-    <textarea name="comment" id="comment" placeholder="Escribe tu comentario aquí..." required style="width: 100%; max-width: 500px; height: 100px; padding: 10px; border: 1px solid #ccc; border-radius: 8px; margin-bottom: 10px; font-family: 'Open Sans', sans-serif;"></textarea>
-    <button type="submit" id="send-btn" style="padding: 10px 20px; background: #0077b6; color: white; border: none; border-radius: 6px; cursor: pointer;">Enviar</button>
-  </form>
-</section>
+  <!-- Formulario de comentarios (con Formspree) -->
+  <section class="comments-section">
+    <form action="https://formspree.io/f/xzzvngag" method="POST" style="text-align: center;">
+      <input type="hidden" name="form-name" value="comentarios" />
+      <h2 id="comment-title">Comentarios:</h2>
+      <textarea name="comment" id="comment" placeholder="Escribe tu comentario aquí..." required style="width: 100%; max-width: 500px; height: 100px; padding: 10px; border: 1px solid #ccc; border-radius: 8px; margin-bottom: 10px; font-family: 'Open Sans', sans-serif;"></textarea>
+      <button type="submit" id="send-btn">Enviar</button>
+    </form>
+  </section>
 
   <!-- Footer -->
   <footer>
