@@ -48,7 +48,6 @@ function changeLanguage() {
   document.getElementById('comment-title').textContent = t.commentTitle;
   document.getElementById('send-btn').textContent = t.sendButton;
 
-  // Guardar preferencia
   localStorage.setItem('selected-lang', lang);
 }
 
@@ -80,8 +79,11 @@ function renderizarGaleria() {
 
     card.innerHTML = `
       <img src="${obra.imagen}" alt="${obra.titulo}" loading="lazy">
-      <h3>${obra.titulo}</h3>
-      <p class="price">Desde $${obra.precio?.toFixed(2) || '20.00'}</p>
+      <div class="product-info">
+        <h3>${obra.titulo}</h3>
+        <p class="price">Desde $${obra.precio?.toFixed(2) || '20.00'}</p>
+        <p class="description">${obra.descripcion || ''}</p>
+      </div>
       <button class="snipcart-add-item"
         data-item-id="${obra.id || obra.titulo}"
         data-item-name="${obra.titulo}"
@@ -94,16 +96,15 @@ function renderizarGaleria() {
     `;
     gallery.appendChild(card);
 
-    // Abrir lightbox al hacer clic
     card.querySelector('img').onclick = () => openLightbox(index);
   });
 }
 
-// === Lightbox: zoom y navegación ===
+// === Lightbox: abrir, cambiar, actualizar info ===
 function openLightbox(index) {
   currentImageIndex = index;
-  document.getElementById('lightbox-img').src = obras[currentImageIndex].imagen;
-  document.getElementById('lightbox').style.display = 'block';
+  actualizarLightbox();
+  document.getElementById('lightbox').style.display = 'flex';
 }
 
 function closeLightbox() {
@@ -112,22 +113,21 @@ function closeLightbox() {
 
 function changeImage(direction) {
   currentImageIndex = (currentImageIndex + direction + obras.length) % obras.length;
-  document.getElementById('lightbox-img').src = obras[currentImageIndex].imagen;
+  actualizarLightbox();
 }
 
-// === Filtrar productos ===
-function filterProducts() {
-  const filter = document.getElementById('style-filter').value;
-  const cards = document.querySelectorAll('.product-card');
+function actualizarLightbox() {
+  const obra = obras[currentImageIndex];
+  document.getElementById('lightbox-img').src = obra.imagen;
+  document.getElementById('lightbox-title').textContent = obra.titulo;
+  document.getElementById('lightbox-desc').textContent = obra.descripcion || 'Sin descripción disponible.';
 
-  cards.forEach((card, index) => {
-    const style = obras[index].estilo;
-    if (filter === 'all' || style === filter) {
-      card.style.display = 'block';
-    } else {
-      card.style.display = 'none';
-    }
-  });
+  const btn = document.querySelector('.lightbox-add');
+  btn.setAttribute('data-item-id', obra.id || obra.titulo);
+  btn.setAttribute('data-item-name', obra.titulo);
+  btn.setAttribute('data-item-price', obra.precio || 20);
+  btn.setAttribute('data-item-image', obra.imagen);
+  btn.setAttribute('data-item-description', obra.descripcion || 'Arte marino generado por IA');
 }
 
 // === Enviar comentario ===
@@ -143,34 +143,40 @@ function submitComment() {
 
 // === Inicializar todo al cargar ===
 document.addEventListener('DOMContentLoaded', () => {
-  // Idioma guardado
   const savedLang = localStorage.getItem('selected-lang') || 'es';
   document.getElementById('lang-select').value = savedLang;
   changeLanguage();
 
-  // Evento de cambio de idioma
   document.getElementById('lang-select').addEventListener('change', changeLanguage);
   document.getElementById('style-filter').addEventListener('change', filterProducts);
 
-  // Cargar obras
   cargarObras();
 
-  // Navegación con teclado
   document.addEventListener('keydown', (e) => {
     const lightbox = document.getElementById('lightbox');
-    if (lightbox.style.display === 'block') {
+    if (lightbox.style.display === 'flex' || lightbox.style.display === 'block') {
       if (e.key === 'Escape') closeLightbox();
       if (e.key === 'ArrowRight') changeImage(1);
       if (e.key === 'ArrowLeft') changeImage(-1);
     }
   });
 
-  // Diagnóstico de Snipcart
   document.addEventListener('snipcart.ready', () => {
     console.log('✅ Snipcart está listo');
   });
-
-  document.addEventListener('snipcart.error', (e) => {
-    console.error('❌ Error de Snipcart:', e.detail);
-  });
 });
+
+// === Filtrar productos ===
+function filterProducts() {
+  const filter = document.getElementById('style-filter').value;
+  const cards = document.querySelectorAll('.product-card');
+
+  cards.forEach((card, index) => {
+    const style = obras[index].estilo;
+    if (filter === 'all' || style === filter) {
+      card.style.display = 'block';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
