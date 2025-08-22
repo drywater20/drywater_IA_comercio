@@ -114,33 +114,19 @@ function changeLanguage() {
   };
 
   const t = translations[currentLang];
+  // Actualizar textos (sin hacerlos clickeables)
   if (document.getElementById('main-title')) document.getElementById('main-title').textContent = t.title;
   if (document.getElementById('main-subtitle')) document.getElementById('main-subtitle').textContent = t.subtitle;
   if (document.getElementById('filter-label')) document.getElementById('filter-label').textContent = t.filterLabel;
   if (document.getElementById('comment-title')) document.getElementById('comment-title').textContent = t.comments;
   if (document.getElementById('send-btn')) document.getElementById('send-btn').textContent = t.send;
 
-  // 🔁 Traducir y hacer clickeables las opciones del filtro
-  if (document.getElementById('option-all')) {
-    document.getElementById('option-all').textContent = t.optionAll;
-    hacerClicable(document.getElementById('option-all'), t.optionAll);
-  }
-  if (document.getElementById('option-peces')) {
-    document.getElementById('option-peces').textContent = t.optionPeces;
-    hacerClicable(document.getElementById('option-peces'), t.optionPeces);
-  }
-  if (document.getElementById('option-calamares')) {
-    document.getElementById('option-calamares').textContent = t.optionCalamares;
-    hacerClicable(document.getElementById('option-calamares'), t.optionCalamares);
-  }
-  if (document.getElementById('option-varios')) {
-    document.getElementById('option-varios').textContent = t.optionVarios;
-    hacerClicable(document.getElementById('option-varios'), t.optionVarios);
-  }
-  if (document.getElementById('option-otros')) {
-    document.getElementById('option-otros').textContent = t.optionOtros;
-    hacerClicable(document.getElementById('option-otros'), t.optionOtros);
-  }
+  // Actualizar opciones del filtro (sin hacerlas clickeables)
+  if (document.getElementById('option-all')) document.getElementById('option-all').textContent = t.optionAll;
+  if (document.getElementById('option-peces')) document.getElementById('option-peces').textContent = t.optionPeces;
+  if (document.getElementById('option-calamares')) document.getElementById('option-calamares').textContent = t.optionCalamares;
+  if (document.getElementById('option-varios')) document.getElementById('option-varios').textContent = t.optionVarios;
+  if (document.getElementById('option-otros')) document.getElementById('option-otros').textContent = t.optionOtros;
 
   // 💡 SAFE: Cambiar idioma de Snipcart solo si está cargado
   if (window.Snipcart && typeof Snipcart.api !== 'undefined') {
@@ -154,7 +140,7 @@ function changeLanguage() {
   // Guardar preferencia
   localStorage.setItem('selected-lang', currentLang);
 
-  // Volver a renderizar galería (actualiza botones)
+  // Volver a renderizar galería
   if (typeof renderizarGaleria === 'function') {
     renderizarGaleria();
   }
@@ -202,10 +188,9 @@ function renderizarGaleria() {
     `;
     gallery.appendChild(card);
 
-    // Hacer clickeables título, descripción y botón
+    // ✅ SOLO HACER CLICKEABLES: TÍTULO Y DESCRIPCIÓN
     hacerClicable(card.querySelector('h3'), titulo);
     hacerClicable(card.querySelector('.description'), descripcion);
-    hacerClicable(card.querySelector('.snipcart-add-item'), buttonText);
 
     // Abrir lightbox al hacer clic en la imagen
     card.querySelector('img').onclick = () => openLightbox(index);
@@ -255,12 +240,9 @@ function actualizarLightbox() {
     btn.setAttribute('data-item-price', '25.00');
     btn.setAttribute('data-item-image', obra.imagen);
     btn.setAttribute('data-item-description', descripcion);
-
-    // Hacer clickeable el botón del lightbox
-    hacerClicable(btn, buttonText);
   }
 
-  // Hacer clickeables título y descripción en el lightbox
+  // ✅ SOLO HACER CLICKEABLES: TÍTULO Y DESCRIPCIÓN EN EL LIGHTBOX
   if (title) hacerClicable(title, titulo);
   if (desc) hacerClicable(desc, descripcion);
 }
@@ -306,18 +288,13 @@ document.addEventListener('DOMContentLoaded', () => {
     speakAllBtn.addEventListener('click', () => {
       const textToSpeak = [
         document.getElementById('main-title')?.textContent || '',
-        document.getElementById('main-subtitle')?.textContent || '',
-        document.getElementById('lang-label')?.textContent || '',
-        document.getElementById('lang-select')?.value || '',
-        document.getElementById('filter-label')?.textContent || '',
-        document.getElementById('style-filter')?.value || '',
-        document.getElementById('comment-title')?.textContent || '',
+        document.getElementById('main-subtitle')?.textContent || ''
       ].join('. ');
       leerTexto(textToSpeak);
     });
   }
 
-  // Cambiar idioma (seguro)
+  // Cambiar idioma
   if (typeof changeLanguage === 'function') {
     changeLanguage();
   }
