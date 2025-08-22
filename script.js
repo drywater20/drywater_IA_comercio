@@ -170,6 +170,7 @@ function renderizarGaleria() {
     card.className = 'product-card';
     card.setAttribute('data-style', obra.estilo);
 
+    // 🔥 data-item-open-cart="true" hace que el carrito se abra
     card.innerHTML = `
       <img src="${obra.imagen}" alt="${titulo}" loading="lazy">
       <div class="product-info">
@@ -182,7 +183,8 @@ function renderizarGaleria() {
         data-item-price="25.00"
         data-item-image="${obra.imagen}"
         data-item-url="/"
-        data-item-description="${descripcion}">
+        data-item-description="${descripcion}"
+        data-item-open-cart="true">
         ${buttonText}
       </button>
     `;
@@ -240,6 +242,8 @@ function actualizarLightbox() {
     btn.setAttribute('data-item-price', '25.00');
     btn.setAttribute('data-item-image', obra.imagen);
     btn.setAttribute('data-item-description', descripcion);
+    // 🔥 Asegurar que el botón del lightbox también abra el carrito
+    btn.setAttribute('data-item-open-cart', 'true');
   }
 
   // ✅ SOLO HACER CLICKEABLES: TÍTULO Y DESCRIPCIÓN EN EL LIGHTBOX
