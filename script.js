@@ -3,13 +3,44 @@ let obras = [];
 let currentImageIndex = 0;
 let currentLang = 'es';
 
+// === Función para leer texto en voz alta ===
+function leerTexto(texto) {
+  if (!texto || typeof texto !== 'string') return;
+  window.speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(texto);
+  
+  const voices = window.speechSynthesis.getVoices();
+  const langVoice = {
+    es: voices.find(v => v.lang.includes('es')),
+    en: voices.find(v => v.lang.includes('en')),
+    fr: voices.find(v => v.lang.includes('fr')),
+    ja: voices.find(v => v.lang.includes('ja'))
+  };
+  
+  if (langVoice[currentLang]) {
+    utterance.voice = langVoice[currentLang];
+  }
+  
+  utterance.rate = 0.9;
+  utterance.pitch = 1;
+  window.speechSynthesis.speak(utterance);
+}
+
+// === Hacer que un elemento sea leído al hacer clic ===
+function hacerClicable(element, texto) {
+  if (!element || !texto) return;
+  element.style.cursor = 'pointer';
+  element.addEventListener('click', (e) => {
+    e.stopPropagation();
+    leerTexto(texto);
+  });
+}
+
 // === Cargar obras desde obras.json ===
 async function cargarObras() {
   try {
     const response = await fetch('obras.json');
-    if (!response.ok) {
-      throw new Error('No se pudo cargar obras.json: ' + response.status);
-    }
+    if (!response.ok) throw new Error('No se pudo cargar obras.json: ' + response.status);
     obras = await response.json();
     console.log('✅ Obras cargadas:', obras);
     renderizarGaleria();
@@ -89,12 +120,27 @@ function changeLanguage() {
   if (document.getElementById('comment-title')) document.getElementById('comment-title').textContent = t.comments;
   if (document.getElementById('send-btn')) document.getElementById('send-btn').textContent = t.send;
 
-  // 🔁 Traducir las opciones del filtro
-  if (document.getElementById('option-all')) document.getElementById('option-all').textContent = t.optionAll;
-  if (document.getElementById('option-peces')) document.getElementById('option-peces').textContent = t.optionPeces;
-  if (document.getElementById('option-calamares')) document.getElementById('option-calamares').textContent = t.optionCalamares;
-  if (document.getElementById('option-varios')) document.getElementById('option-varios').textContent = t.optionVarios;
-  if (document.getElementById('option-otros')) document.getElementById('option-otros').textContent = t.optionOtros;
+  // 🔁 Traducir y hacer clickeables las opciones del filtro
+  if (document.getElementById('option-all')) {
+    document.getElementById('option-all').textContent = t.optionAll;
+    hacerClicable(document.getElementById('option-all'), t.optionAll);
+  }
+  if (document.getElementById('option-peces')) {
+    document.getElementById('option-peces').textContent = t.optionPeces;
+    hacerClicable(document.getElementById('option-peces'), t.optionPeces);
+  }
+  if (document.getElementById('option-calamares')) {
+    document.getElementById('option-calamares').textContent = t.optionCalamares;
+    hacerClicable(document.getElementById('option-calamares'), t.optionCalamares);
+  }
+  if (document.getElementById('option-varios')) {
+    document.getElementById('option-varios').textContent = t.optionVarios;
+    hacerClicable(document.getElementById('option-varios'), t.optionVarios);
+  }
+  if (document.getElementById('option-otros')) {
+    document.getElementById('option-otros').textContent = t.optionOtros;
+    hacerClicable(document.getElementById('option-otros'), t.optionOtros);
+  }
 
   // 💡 SAFE: Cambiar idioma de Snipcart solo si está cargado
   if (window.Snipcart && typeof Snipcart.api !== 'undefined') {
@@ -156,6 +202,12 @@ function renderizarGaleria() {
     `;
     gallery.appendChild(card);
 
+    // Hacer clickeables título, descripción y botón
+    hacerClicable(card.querySelector('h3'), titulo);
+    hacerClicable(card.querySelector('.description'), descripcion);
+    hacerClicable(card.querySelector('.snipcart-add-item'), buttonText);
+
+    // Abrir lightbox al hacer clic en la imagen
     card.querySelector('img').onclick = () => openLightbox(index);
   });
 }
@@ -192,17 +244,25 @@ function actualizarLightbox() {
   if (title) title.textContent = titulo;
   if (desc) desc.textContent = descripcion;
   if (btn) {
-    btn.textContent = 
+    const buttonText = 
       currentLang === 'es' ? 'Añadir al carrito' :
       currentLang === 'en' ? 'Add to cart' :
       currentLang === 'fr' ? 'Ajouter au panier' :
       'カートに追加';
+    btn.textContent = buttonText;
     btn.setAttribute('data-item-id', obra.id);
     btn.setAttribute('data-item-name', titulo);
     btn.setAttribute('data-item-price', '25.00');
     btn.setAttribute('data-item-image', obra.imagen);
     btn.setAttribute('data-item-description', descripcion);
+
+    // Hacer clickeable el botón del lightbox
+    hacerClicable(btn, buttonText);
   }
+
+  // Hacer clickeables título y descripción en el lightbox
+  if (title) hacerClicable(title, titulo);
+  if (desc) hacerClicable(desc, descripcion);
 }
 
 // === Filtrar productos por estilo ===
@@ -239,6 +299,23 @@ document.addEventListener('DOMContentLoaded', () => {
   const langSelect = document.getElementById('lang-select');
   if (langSelect) langSelect.value = savedLang;
   currentLang = savedLang;
+
+  // Botón de escuchar todo
+  const speakAllBtn = document.getElementById('speak-all');
+  if (speakAllBtn) {
+    speakAllBtn.addEventListener('click', () => {
+      const textToSpeak = [
+        document.getElementById('main-title')?.textContent || '',
+        document.getElementById('main-subtitle')?.textContent || '',
+        document.getElementById('lang-label')?.textContent || '',
+        document.getElementById('lang-select')?.value || '',
+        document.getElementById('filter-label')?.textContent || '',
+        document.getElementById('style-filter')?.value || '',
+        document.getElementById('comment-title')?.textContent || '',
+      ].join('. ');
+      leerTexto(textToSpeak);
+    });
+  }
 
   // Cambiar idioma (seguro)
   if (typeof changeLanguage === 'function') {
@@ -287,3 +364,16 @@ document.addEventListener('DOMContentLoaded', () => {
     console.error('❌ Error de Snipcart:', e.detail);
   });
 });
+
+// === Cargar voces del sistema ===
+let voicesLoaded = false;
+function cargarVoces() {
+  if (typeof speechSynthesis !== 'undefined' && !voicesLoaded) {
+    speechSynthesis.getVoices();
+    voicesLoaded = true;
+  }
+}
+cargarVoces();
+if ('speechSynthesis' in window) {
+  window.speechSynthesis.onvoiceschanged = cargarVoces;
+}
