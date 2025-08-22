@@ -90,11 +90,16 @@
     <span class="nav-btn next" onclick="changeImage(1)">&#10095;</span>
   </div>
 
-  <!-- Formulario de comentarios -->
+  <!-- Formulario de comentarios (ahora con Netlify Forms) -->
   <section class="comments-section">
-    <h2 id="comment-title">Comentarios:</h2>
-    <textarea id="comment" placeholder="Escribe tu comentario aquí..."></textarea>
-    <button id="send-btn" onclick="submitComment()">Enviar</button>
+    <form name="comentarios" data-netlify="true" method="POST" style="text-align: center;">
+      <!-- Campo oculto para Netlify -->
+      <input type="hidden" name="form-name" value="comentarios" />
+      
+      <h2 id="comment-title">Comentarios:</h2>
+      <textarea name="comment" id="comment" placeholder="Escribe tu comentario aquí..." required style="width: 100%; max-width: 500px; height: 100px; padding: 10px; border: 1px solid #ccc; border-radius: 8px; margin-bottom: 10px; font-family: 'Open Sans', sans-serif;"></textarea>
+      <button type="submit" id="send-btn" style="padding: 10px 20px; background: #0077b6; color: white; border: none; border-radius: 6px; cursor: pointer;">Enviar</button>
+    </form>
   </section>
 
   <!-- Footer -->
