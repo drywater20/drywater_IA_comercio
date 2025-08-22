@@ -7,12 +7,20 @@ let currentLang = 'es';
 async function cargarObras() {
   try {
     const response = await fetch('obras.json');
-    if (!response.ok) throw new Error('No se pudo cargar obras.json');
+    if (!response.ok) {
+      throw new Error('No se pudo cargar obras.json: ' + response.status);
+    }
     obras = await response.json();
+    console.log('✅ Obras cargadas:', obras);
     renderizarGaleria();
   } catch (error) {
-    console.error('Error al cargar las obras:', error);
-    document.getElementById('gallery').innerHTML = '<p>⚠️ Error al cargar las imágenes.</p>';
+    console.error('❌ Error al cargar las obras:', error);
+    document.getElementById('gallery').innerHTML = `
+      <p style="color: red; text-align: center; margin: 20px;">
+        ⚠️ No se pudieron cargar las imágenes.<br>
+        Revisa la consola para más detalles.
+      </p>
+    `;
   }
 }
 
@@ -60,9 +68,13 @@ function changeLanguage() {
   document.getElementById('comment-title').textContent = t.comments;
   document.getElementById('send-btn').textContent = t.send;
 
-  // 💡 Cambiar idioma del carrito de Snipcart
-  if (window.Snipcart) {
-    Snipcart.api.state.locale.set(currentLang);
+  // 💡 SAFE: Cambiar idioma de Snipcart solo si está cargado
+  if (window.Snipcart && typeof Snipcart.api !== 'undefined') {
+    try {
+      Snipcart.api.state.locale.set(currentLang);
+    } catch (error) {
+      console.warn('⚠️ No se pudo cambiar el idioma de Snipcart aún:', error);
+    }
   }
 
   // Guardar preferencia
@@ -183,34 +195,56 @@ function submitComment() {
 
 // === Inicialización al cargar ===
 document.addEventListener('DOMContentLoaded', () => {
+  // Cargar idioma guardado
   const savedLang = localStorage.getItem('selected-lang') || 'es';
-  document.getElementById('lang-select').value = savedLang;
+  const langSelect = document.getElementById('lang-select');
+  if (langSelect) langSelect.value = savedLang;
   currentLang = savedLang;
-  changeLanguage();
+
+  // Cambiar idioma (seguro)
+  if (typeof changeLanguage === 'function') {
+    changeLanguage();
+  }
 
   // Eventos
-  document.getElementById('lang-select').addEventListener('change', changeLanguage);
-  document.getElementById('style-filter').addEventListener('change', filterProducts);
+  const filterSelect = document.getElementById('style-filter');
+  if (filterSelect) {
+    filterSelect.addEventListener('change', filterProducts);
+  }
+
+  if (langSelect) {
+    langSelect.addEventListener('change', changeLanguage);
+  }
 
   // Cargar obras
-  cargarObras();
+  if (typeof cargarObras === 'function') {
+    cargarObras();
+  }
 
   // Navegación con teclado
   document.addEventListener('keydown', (e) => {
     const lightbox = document.getElementById('lightbox');
-    if (lightbox.style.display === 'flex') {
+    if (lightbox && (lightbox.style.display === 'flex' || lightbox.style.display === 'block')) {
       if (e.key === 'Escape') closeLightbox();
       if (e.key === 'ArrowRight') changeImage(1);
       if (e.key === 'ArrowLeft') changeImage(-1);
     }
   });
 
-  // Snipcart
+  // ✅ Snipcart: Cambiar idioma cuando esté listo
   document.addEventListener('snipcart.ready', () => {
-    console.log('✅ Snipcart está listo');
-    // Asegurar el idioma inicial
+    console.log('✅ Snipcart está listo y cargado');
     if (window.Snipcart) {
-      Snipcart.api.state.locale.set(currentLang);
+      try {
+        Snipcart.api.state.locale.set(currentLang);
+      } catch (error) {
+        console.error('❌ Error al establecer idioma en Snipcart:', error);
+      }
     }
+  });
+
+  // Diagnóstico de errores de Snipcart
+  document.addEventListener('snipcart.error', (e) => {
+    console.error('❌ Error de Snipcart:', e.detail);
   });
 });
