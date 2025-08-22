@@ -27,46 +27,74 @@ async function cargarObras() {
 // === Cambiar idioma ===
 function changeLanguage() {
   const langSelect = document.getElementById('lang-select');
+  if (!langSelect) return;
   currentLang = langSelect.value;
 
-  // Textos de la interfaz
+  // Textos de la interfaz por idioma
   const translations = {
-    es: { 
-      title: "Galería de Arte", 
-      subtitle: "Disfruta de una colección única de arte marino.", 
-      filter: "Filtrar por estilo:", 
-      comments: "Comentarios:", 
-      send: "Enviar" 
+    es: {
+      title: "Galería de Arte",
+      subtitle: "Disfruta de una colección única de arte marino.",
+      filterLabel: "Filtrar por estilo:",
+      optionAll: "todos",
+      optionPeces: "peces",
+      optionCalamares: "calamares",
+      optionVarios: "varios",
+      optionOtros: "otros",
+      comments: "Comentarios:",
+      send: "Enviar"
     },
-    en: { 
-      title: "Art Gallery", 
-      subtitle: "Enjoy a unique collection of marine art.", 
-      filter: "Filter by style:", 
-      comments: "Comments:", 
-      send: "Send" 
+    en: {
+      title: "Art Gallery",
+      subtitle: "Enjoy a unique collection of marine art.",
+      filterLabel: "Filter by style:",
+      optionAll: "all",
+      optionPeces: "fish",
+      optionCalamares: "squid",
+      optionVarios: "various",
+      optionOtros: "others",
+      comments: "Comments:",
+      send: "Send"
     },
-    fr: { 
-      title: "Galerie d'Art", 
-      subtitle: "Profitez d'une collection unique d'art marin.", 
-      filter: "Filtrer par style :", 
-      comments: "Commentaires :", 
-      send: "Envoyer" 
+    fr: {
+      title: "Galerie d'Art",
+      subtitle: "Profitez d'une collection unique d'art marin.",
+      filterLabel: "Filtrer par style :",
+      optionAll: "tous",
+      optionPeces: "poissons",
+      optionCalamares: "calmars",
+      optionVarios: "divers",
+      optionOtros: "autres",
+      comments: "Commentaires :",
+      send: "Envoyer"
     },
-    ja: { 
-      title: "アートギャラリー", 
-      subtitle: "ユニークなマリンアートのコレクションをお楽しみください。", 
-      filter: "スタイルでフィルター：", 
-      comments: "コメント：", 
-      send: "送信" 
+    ja: {
+      title: "アートギャラリー",
+      subtitle: "ユニークなマリンアートのコレクションをお楽しみください。",
+      filterLabel: "スタイルでフィルター：",
+      optionAll: "すべて",
+      optionPeces: "魚",
+      optionCalamares: "イカ",
+      optionVarios: "その他",
+      optionOtros: "その他",
+      comments: "コメント：",
+      send: "送信"
     }
   };
 
   const t = translations[currentLang];
-  document.getElementById('main-title').textContent = t.title;
-  document.getElementById('main-subtitle').textContent = t.subtitle;
-  document.getElementById('filter-label').textContent = t.filter;
-  document.getElementById('comment-title').textContent = t.comments;
-  document.getElementById('send-btn').textContent = t.send;
+  if (document.getElementById('main-title')) document.getElementById('main-title').textContent = t.title;
+  if (document.getElementById('main-subtitle')) document.getElementById('main-subtitle').textContent = t.subtitle;
+  if (document.getElementById('filter-label')) document.getElementById('filter-label').textContent = t.filterLabel;
+  if (document.getElementById('comment-title')) document.getElementById('comment-title').textContent = t.comments;
+  if (document.getElementById('send-btn')) document.getElementById('send-btn').textContent = t.send;
+
+  // 🔁 Traducir las opciones del filtro
+  if (document.getElementById('option-all')) document.getElementById('option-all').textContent = t.optionAll;
+  if (document.getElementById('option-peces')) document.getElementById('option-peces').textContent = t.optionPeces;
+  if (document.getElementById('option-calamares')) document.getElementById('option-calamares').textContent = t.optionCalamares;
+  if (document.getElementById('option-varios')) document.getElementById('option-varios').textContent = t.optionVarios;
+  if (document.getElementById('option-otros')) document.getElementById('option-otros').textContent = t.optionOtros;
 
   // 💡 SAFE: Cambiar idioma de Snipcart solo si está cargado
   if (window.Snipcart && typeof Snipcart.api !== 'undefined') {
@@ -81,12 +109,15 @@ function changeLanguage() {
   localStorage.setItem('selected-lang', currentLang);
 
   // Volver a renderizar galería (actualiza botones)
-  renderizarGaleria();
+  if (typeof renderizarGaleria === 'function') {
+    renderizarGaleria();
+  }
 }
 
 // === Renderizar galería de productos ===
 function renderizarGaleria() {
   const gallery = document.getElementById('gallery');
+  if (!gallery) return;
   gallery.innerHTML = '';
 
   obras.forEach((obra, index) => {
@@ -133,11 +164,13 @@ function renderizarGaleria() {
 function openLightbox(index) {
   currentImageIndex = index;
   actualizarLightbox();
-  document.getElementById('lightbox').style.display = 'flex';
+  const lightbox = document.getElementById('lightbox');
+  if (lightbox) lightbox.style.display = 'flex';
 }
 
 function closeLightbox() {
-  document.getElementById('lightbox').style.display = 'none';
+  const lightbox = document.getElementById('lightbox');
+  if (lightbox) lightbox.style.display = 'none';
 }
 
 function changeImage(direction) {
@@ -150,21 +183,26 @@ function actualizarLightbox() {
   const titulo = obra.titulo[currentLang];
   const descripcion = obra.descripcion[currentLang];
 
-  document.getElementById('lightbox-img').src = obra.imagen;
-  document.getElementById('lightbox-title').textContent = titulo;
-  document.getElementById('lightbox-desc').textContent = descripcion;
-
+  const img = document.getElementById('lightbox-img');
+  const title = document.getElementById('lightbox-title');
+  const desc = document.getElementById('lightbox-desc');
   const btn = document.querySelector('.lightbox-add');
-  btn.textContent = 
-    currentLang === 'es' ? 'Añadir al carrito' :
-    currentLang === 'en' ? 'Add to cart' :
-    currentLang === 'fr' ? 'Ajouter au panier' :
-    'カートに追加';
-  btn.setAttribute('data-item-id', obra.id);
-  btn.setAttribute('data-item-name', titulo);
-  btn.setAttribute('data-item-price', '25.00');
-  btn.setAttribute('data-item-image', obra.imagen);
-  btn.setAttribute('data-item-description', descripcion);
+
+  if (img) img.src = obra.imagen;
+  if (title) title.textContent = titulo;
+  if (desc) desc.textContent = descripcion;
+  if (btn) {
+    btn.textContent = 
+      currentLang === 'es' ? 'Añadir al carrito' :
+      currentLang === 'en' ? 'Add to cart' :
+      currentLang === 'fr' ? 'Ajouter au panier' :
+      'カートに追加';
+    btn.setAttribute('data-item-id', obra.id);
+    btn.setAttribute('data-item-name', titulo);
+    btn.setAttribute('data-item-price', '25.00');
+    btn.setAttribute('data-item-image', obra.imagen);
+    btn.setAttribute('data-item-description', descripcion);
+  }
 }
 
 // === Filtrar productos por estilo ===
@@ -184,10 +222,11 @@ function filterProducts() {
 
 // === Enviar comentario ===
 function submitComment() {
-  const comment = document.getElementById('comment').value;
-  if (comment.trim()) {
+  const comment = document.getElementById('comment');
+  if (!comment) return;
+  if (comment.value.trim()) {
     alert("Gracias por tu comentario. ¡Lo tendremos en cuenta!");
-    document.getElementById('comment').value = '';
+    comment.value = '';
   } else {
     alert("Por favor, escribe un comentario.");
   }
