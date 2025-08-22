@@ -18,8 +18,7 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans&display=swap" rel="stylesheet">
   
-  <!-- Snipcart para e-commerce -->
-  <script src="https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.js"></script>
+  <!-- Snipcart CSS -->
   <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.css" />
   
   <link rel="stylesheet" href="style.css">
@@ -32,14 +31,14 @@
   </div>
 
   <header>
-    <h1>Galería de Arte</h1>
-    <p>Disfruta de una colección única de arte marino.</p>
+    <h1 id="main-title">Galería de Arte</h1>
+    <p id="main-subtitle">Disfruta de una colección única de arte marino.</p>
   </header>
 
   <!-- Selector de idioma -->
   <div class="language-selector">
-    <label>Idioma: </label>
-    <select id="lang-select" onchange="changeLanguage()">
+    <label id="lang-label">Idioma:</label>
+    <select id="lang-select">
       <option value="es">Español</option>
       <option value="en">English</option>
       <option value="fr">Français</option>
@@ -49,8 +48,8 @@
 
   <!-- Filtros -->
   <div class="filters">
-    <label>Filtrar por estilo: </label>
-    <select id="style-filter" onchange="filterProducts()">
+    <label id="filter-label">Filtrar por estilo:</label>
+    <select id="style-filter">
       <option value="all">todos</option>
       <option value="abstract">abstracto</option>
       <option value="realist">realista</option>
@@ -61,7 +60,7 @@
 
   <!-- Galería de productos -->
   <main id="gallery">
-    <!-- Las obras se cargarán dinámicamente desde obras.json -->
+    <!-- Las obras se cargarán dinámicamente -->
   </main>
 
   <!-- Lightbox para zoom -->
@@ -74,9 +73,9 @@
 
   <!-- Formulario de comentarios -->
   <section class="comments-section">
-    <h2>Comentarios:</h2>
+    <h2 id="comment-title">Comentarios:</h2>
     <textarea id="comment" placeholder="Escribe tu comentario aquí..."></textarea>
-    <button onclick="submitComment()">Enviar</button>
+    <button id="send-btn" onclick="submitComment()">Enviar</button>
   </section>
 
   <!-- Footer -->
@@ -85,9 +84,11 @@
     <p>Arte generado por IA • Envíos a todo el mundo</p>
   </footer>
 
-  <!-- Snipcart (reemplaza YOUR_PUBLIC_KEY con tu clave real) -->
+  <!-- Snipcart (reemplaza con tu clave real) -->
   <div hidden id="snipcart" data-api-key="MjUwN2JjYjUtODgzNi00ZDg5LWI0ODktMDA2NGNjNmUwMjI4NjM4OTEzNjg4NzYyMTM1Mzcw"></div>
 
+  <!-- Scripts -->
+  <script src="https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

@@ -37,6 +37,12 @@ header p {
   margin: 20px 0;
 }
 
+.language-selector label, .filters label {
+  margin-right: 8px;
+  font-weight: bold;
+  color: #333;
+}
+
 .language-selector select, .filters select {
   padding: 8px 12px;
   border: 1px solid #0077b6;

@@ -1,7 +1,61 @@
+// === Traducciones por idioma ===
+const traducciones = {
+  es: {
+    title: "Galería de Arte",
+    subtitle: "Disfruta de una colección única de arte marino.",
+    langLabel: "Idioma:",
+    filterLabel: "Filtrar por estilo:",
+    commentTitle: "Comentarios:",
+    sendButton: "Enviar"
+  },
+  en: {
+    title: "Art Gallery",
+    subtitle: "Enjoy a unique collection of marine art.",
+    langLabel: "Language:",
+    filterLabel: "Filter by style:",
+    commentTitle: "Comments:",
+    sendButton: "Send"
+  },
+  fr: {
+    title: "Galerie d'Art",
+    subtitle: "Profitez d'une collection unique d'art marin.",
+    langLabel: "Langue:",
+    filterLabel: "Filtrer par style:",
+    commentTitle: "Commentaires:",
+    sendButton: "Envoyer"
+  },
+  ja: {
+    title: "アートギャラリー",
+    subtitle: "ユニークなマリンアートのコレクションをお楽しみください。",
+    langLabel: "言語:",
+    filterLabel: "スタイルでフィルター：",
+    commentTitle: "コメント：",
+    sendButton: "送信"
+  }
+};
+
+// === Cambiar idioma y guardar selección ===
+function changeLanguage() {
+  const lang = document.getElementById('lang-select').value;
+  const t = traducciones[lang];
+
+  if (!t) return;
+
+  document.getElementById('main-title').textContent = t.title;
+  document.getElementById('main-subtitle').textContent = t.subtitle;
+  document.getElementById('lang-label').textContent = t.langLabel;
+  document.getElementById('filter-label').textContent = t.filterLabel;
+  document.getElementById('comment-title').textContent = t.commentTitle;
+  document.getElementById('send-btn').textContent = t.sendButton;
+
+  // Guardar preferencia
+  localStorage.setItem('selected-lang', lang);
+}
+
+// === Cargar obras desde obras.json ===
 let obras = [];
 let currentImageIndex = 0;
 
-// === Cargar obras desde obras.json ===
 async function cargarObras() {
   try {
     const response = await fetch('obras.json');
@@ -40,16 +94,15 @@ function renderizarGaleria() {
     `;
     gallery.appendChild(card);
 
-    // Abrir lightbox al hacer clic en la imagen
+    // Abrir lightbox al hacer clic
     card.querySelector('img').onclick = () => openLightbox(index);
   });
 }
 
-// === Lightbox: abrir, cambiar, cerrar ===
+// === Lightbox: zoom y navegación ===
 function openLightbox(index) {
   currentImageIndex = index;
-  const img = document.getElementById('lightbox-img');
-  img.src = obras[currentImageIndex].imagen;
+  document.getElementById('lightbox-img').src = obras[currentImageIndex].imagen;
   document.getElementById('lightbox').style.display = 'block';
 }
 
@@ -62,7 +115,7 @@ function changeImage(direction) {
   document.getElementById('lightbox-img').src = obras[currentImageIndex].imagen;
 }
 
-// === Filtrar productos por estilo ===
+// === Filtrar productos ===
 function filterProducts() {
   const filter = document.getElementById('style-filter').value;
   const cards = document.querySelectorAll('.product-card');
@@ -77,25 +130,6 @@ function filterProducts() {
   });
 }
 
-// === Cambiar idioma ===
-function changeLanguage() {
-  const lang = document.getElementById('lang-select').value;
-  const translations = {
-    es: { title: "Galería de Arte", subtitle: "Disfruta de una colección única de arte marino.", comment: "Comentarios:", send: "Enviar" },
-    en: { title: "Art Gallery", subtitle: "Enjoy a unique collection of marine art.", comment: "Comments:", send: "Send" },
-    fr: { title: "Galerie d'Art", subtitle: "Profitez d'une collection unique d'art marin.", comment: "Commentaires :", send: "Envoyer" },
-    ja: { title: "アートギャラリー", subtitle: "ユニークなマリンアートのコレクションをお楽しみください。", comment: "コメント：", send: "送信" }
-  };
-
-  const t = translations[lang];
-  if (t) {
-    document.querySelector('header h1').textContent = t.title;
-    document.querySelector('header p').textContent = t.subtitle;
-    document.querySelector('.comments-section h2').textContent = t.comment;
-    document.querySelector('.comments-section button').textContent = t.send;
-  }
-}
-
 // === Enviar comentario ===
 function submitComment() {
   const comment = document.getElementById('comment').value;
@@ -107,8 +141,18 @@ function submitComment() {
   }
 }
 
-// === Cargar todo al inicio ===
+// === Inicializar todo al cargar ===
 document.addEventListener('DOMContentLoaded', () => {
+  // Idioma guardado
+  const savedLang = localStorage.getItem('selected-lang') || 'es';
+  document.getElementById('lang-select').value = savedLang;
+  changeLanguage();
+
+  // Evento de cambio de idioma
+  document.getElementById('lang-select').addEventListener('change', changeLanguage);
+  document.getElementById('style-filter').addEventListener('change', filterProducts);
+
+  // Cargar obras
   cargarObras();
 
   // Navegación con teclado
@@ -119,5 +163,14 @@ document.addEventListener('DOMContentLoaded', () => {
       if (e.key === 'ArrowRight') changeImage(1);
       if (e.key === 'ArrowLeft') changeImage(-1);
     }
+  });
+
+  // Diagnóstico de Snipcart
+  document.addEventListener('snipcart.ready', () => {
+    console.log('✅ Snipcart está listo');
+  });
+
+  document.addEventListener('snipcart.error', (e) => {
+    console.error('❌ Error de Snipcart:', e.detail);
   });
 });
