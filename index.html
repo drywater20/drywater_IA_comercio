@@ -3,18 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>drywater IA - Inteligencia Artificial para Comercios</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <title>drywater IA</title>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
   <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
+  <video autoplay loop muted plays-inline class="bg-video">
+    <source src="https://cdn.dribbble.com/users/485752/screenshots/16876435/media/8d56c6c35c5e695a84899ae5e6d79b3d.mp4" type="video/mp4">
+  </video>
+
   <div class="container">
-    <h1>drywater IA</h1>
-    <p>Accede a nuestra inteligencia artificial para optimizar tu comercio. Suscripción mensual segura.</p>
-    <button id="checkout-button">Acceder por $19.99/mes</button>
-    <footer>© 2025 drywater IA. Todos los derechos reservados.</footer>
+    <h1 class="glitch" data-text="drywater IA">drywater IA</h1>
+    <p class="scanline">Acceso a inteligencia artificial para comercios. Suscripción mensual.</p>
+    
+    <!-- Botón con estilo glitch -->
+    <button id="checkout-button" class="glitch-btn">PAGAR CON IA</button>
+
+    <!-- Sonido al hacer clic -->
+    <audio id="click-sound" src="https://assets.codepen.io/21542/pluck_03.wav" preload="auto"></audio>
+
+    <footer class="footer-glitch" data-text="© drywater 2025">© drywater 2025</footer>
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>

@@ -1,15 +1,22 @@
-// Reemplaza con tu clave pública de Stripe (empieza con pk_test_...)
-const PUBLISHABLE_KEY = 'pk_test_MjUwN2JjYjUtODgzNi00ZDg5LWI0ODktMDA2NGNjNmUwMjI4NjM4OTEzNjg4NzYyMTM1Mzcw'; 
+// === CONFIGURACIÓN ===
+const PUBLISHABLE_KEY = 'MjUwN2JjYjUtODgzNi00ZDg5LWI0ODktMDA2NGNjNmUwMjI4NjM4OTEzNjg4NzYyMTM1Mzcw'; // ⚠️ Cambia esto
+const PRICE_ID = 'price_TU_PRICE_ID_AQUÍ';       // ⚠️ Cambia esto
 
-// Reemplaza con el Price ID de tu producto (en Products en Stripe)
-const PRICE_ID = 'price_XXXXXXXXXXXXXXXXXXXXXXX';
-
+// === ELEMENTOS ===
 const stripe = Stripe(PUBLISHABLE_KEY);
 const checkoutButton = document.getElementById('checkout-button');
+const clickSound = document.getElementById('click-sound');
 
+// === SONIDO AL HACER CLIC ===
+checkoutButton.addEventListener('click', () => {
+  clickSound.currentTime = 0;
+  clickSound.play();
+});
+
+// === PASARELA DE PAGO ===
 checkoutButton.addEventListener('click', async () => {
   checkoutButton.disabled = true;
-  checkoutButton.textContent = 'Procesando...';
+  checkoutButton.textContent = 'INICIANDO...';
 
   try {
     const response = await fetch('/api/create-checkout-session', {
@@ -31,13 +38,13 @@ checkoutButton.addEventListener('click', async () => {
         alert('Error: ' + result.error.message);
       }
     } else {
-      throw new Error(session.error || 'Error al crear la sesión');
+      throw new Error(session.error || 'Error en el servidor');
     }
   } catch (error) {
     console.error('Error:', error);
-    alert('Hubo un problema. Intenta más tarde.');
+    alert('❌ Conexión fallida. Intenta más tarde.');
   } finally {
     checkoutButton.disabled = false;
-    checkoutButton.textContent = 'Acceder por $19.99/mes';
+    checkoutButton.textContent = 'PAGAR CON IA';
   }
 });

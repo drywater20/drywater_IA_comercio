@@ -2,33 +2,41 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Éxito - drywater IA</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <title>Acceso concedido</title>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Inter', sans-serif;
-      background: #0f172a;
-      color: white;
+      background: #000;
+      color: #0f0;
+      font-family: 'VT323', monospace;
       text-align: center;
-      padding: 50px;
+      padding: 100px 20px;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      text-shadow: 0 0 5px #0f0;
     }
-    h1 { color: #8b5cf6; }
+    .glitch {
+      font-size: 4rem;
+      animation: glitch 2s infinite;
+    }
+    @keyframes glitch {
+      0% { transform: translate(0); }
+      20% { transform: translate(-3px, 3px); }
+      40% { transform: translate(-3px, -3px); }
+      60% { transform: translate(3px, 3px); }
+      80% { transform: translate(3px, -3px); }
+      100% { transform: translate(0); }
+    }
     a {
-      color: #6366f1;
+      color: #0f0;
       text-decoration: none;
-      font-weight: 600;
+      margin-top: 20px;
+      display: inline-block;
     }
-    a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
-  <h1>¡Gracias por tu suscripción! 🎉</h1>
-  <p>Pronto recibirás acceso a drywater IA. Revisa tu correo.</p>
-  <a href="/">Volver al inicio</a>
+  <h1 class="glitch">ACCESO CONCEDIDO</h1>
+  <p>La IA está activa. Bienvenido al sistema.</p>
+  <a href="/">← volver</a>
 </body>
 </html>
