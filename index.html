@@ -3,74 +3,187 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DryWater IA - Soluciones de Inteligencia Artificial</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/style.css" />
+  <title>Drywater Art | Tienda de Arte Marino Digital</title>
+  <meta name="description" content="Colección exclusiva de arte marino generado por inteligencia artificial. Compra impresiones en lienzo, papel fotográfico o descargas digitales. Envíos a todo el mundo.">
+  <meta name="keywords" content="arte marino, arte digital, impresiones de arte, IA arte, arte oceánico, arte abstracto">
+  <meta name="author" content="Drywater Studio">
+  
+  <!-- Open Graph para redes sociales -->
+  <meta property="og:title" content="Drywater Art - Arte Marino por IA">
+  <meta property="og:description" content="Colección de arte marino digital. Compra impresiones únicas generadas por inteligencia artificial.">
+  <meta property="og:image" content="https://drywater-ia.netlify.app/imagenes/og-image.jpg">
+  <meta property="og:url" content="https://drywater-ia.netlify.app/">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans&display=swap" rel="stylesheet">
+  
+  <!-- Snipcart CSS -->
+  <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.css" />
+  
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <header>
-    <div class="container">
-      <h2>DryWater IA</h2>
-      <nav>
-        <a href="#productos">Productos</a>
-        <a href="#contacto">Contacto</a>
-        <button id="btn-carrito">🛒 <span id="contador">0</span></button>
-      </nav>
-    </div>
-  </header>
-
-  <section class="hero">
-    <div class="hero-content">
-      <h1>IA Potente, Sin Complejidades</h1>
-      <p>Herramientas listas para usar. Sin necesidad de programar. Acceso inmediato.</p>
-      <a href="#productos" class="btn btn-primary">Ver productos</a>
-    </div>
-    <img src="imagenes/hero.png" alt="IA moderna" class="hero-img">
-  </section>
-
-  <section id="productos" class="productos">
-    <h2>Nuestros Productos</h2>
-    <div class="grid">
-      <div class="producto" data-id="1">
-        <img src="imagenes/producto1.png" alt="Modelo Predictivo">
-        <h3>Modelo Predictivo</h3>
-        <p class="precio">$49.99 USD</p>
-        <p>Predecir tendencias de mercado con precisión.</p>
-        <button class="btn btn-add" data-id="1" data-precio="49.99">Agregar al carrito</button>
-      </div>
-      <div class="producto" data-id="2">
-        <img src="imagenes/producto2.png" alt="Chatbot IA">
-        <h3>Chatbot Personalizado</h3>
-        <p class="precio">$69.99 USD</p>
-        <p>Atención al cliente automatizada 24/7.</p>
-        <button class="btn btn-add" data-id="2" data-precio="69.99">Agregar al carrito</button>
-      </div>
-      <div class="producto" data-id="3">
-        <img src="imagenes/producto3.png" alt="Análisis de Datos">
-        <h3>Análisis de Datos Avanzado</h3>
-        <p class="precio">$59.99 USD</p>
-        <p>Visualiza y entiende tus datos con IA.</p>
-        <button class="btn btn-add" data-id="3" data-precio="59.99">Agregar al carrito</button>
-      </div>
-    </div>
-  </section>
-
-  <section id="contacto" class="contacto">
-    <h2>¿Tienes dudas?</h2>
-    <p>Contáctanos: hola@drywater.com</p>
-  </section>
-
-  <!-- Modal del carrito -->
-  <div id="modal-carrito" class="modal">
-    <div class="modal-content">
-      <span id="cerrar-carrito" class="cerrar">&times;</span>
-      <h3>Tu Carrito</h3>
-      <div id="lista-carrito"></div>
-      <p id="total-carrito"><strong>Total: $0.00</strong></p>
-      <button id="btn-pagar" class="btn btn-primary" disabled>Pagar ahora</button>
-    </div>
+  <!-- Botón flotante del carrito -->
+  <div class="snipcart-summary snipcart-checkout">
+    🛒 <span class="snipcart-total-price">Carrito (0)</span>
   </div>
 
-  <script src="/js/script.js" type="module"></script>
+  <header>
+    <h1 id="main-title">Galería de Arte</h1>
+    <p id="main-subtitle">Disfruta de una colección única de arte marino.</p>
+  </header>
+
+  <!-- Botón de escuchar todo (con ID para traducción) -->
+  <div style="text-align: center; margin: 10px 0;">
+    <button id="speak-all">Escuchar</button>
+  </div>
+
+  <!-- Selector de idioma -->
+  <div class="language-selector">
+    <label id="lang-label">Idioma:</label>
+    <select id="lang-select">
+      <option value="es">Español</option>
+      <option value="en">English</option>
+      <option value="fr">Français</option>
+      <option value="ja">日本語</option>
+    </select>
+  </div>
+
+  <!-- Filtros -->
+  <div class="filters">
+    <label id="filter-label">Filtrar por estilo:</label>
+    <select id="style-filter">
+      <option value="all" id="option-all">todos</option>
+      <option value="peces" id="option-peces">peces</option>
+      <option value="calamares" id="option-calamares">calamares</option>
+      <option value="varios" id="option-varios">varios</option>
+      <option value="otros" id="option-otros">otros</option>
+    </select>
+  </div>
+
+  <!-- Galería de productos -->
+  <main id="gallery">
+    <!-- Las obras se cargarán dinámicamente -->
+  </main>
+
+  <!-- Lightbox para zoom con título y descripción -->
+  <div id="lightbox" class="lightbox">
+    <span class="close-btn" onclick="closeLightbox()">&times;</span>
+    <span class="nav-btn prev" onclick="changeImage(-1)">&#10094;</span>
+    <div class="lightbox-content-wrapper">
+      <img id="lightbox-img" class="lightbox-content">
+      <div class="lightbox-info">
+        <h3 id="lightbox-title">Título</h3>
+        <p id="lightbox-desc">Descripción</p>
+        <button class="snipcart-add-item lightbox-add"
+          data-item-id=""
+          data-item-name=""
+          data-item-price="25.00"
+          data-item-image=""
+          data-item-url="/"
+          data-item-description=""
+          data-item-open-cart="true">Añadir al carrito</button>
+      </div>
+    </div>
+    <span class="nav-btn next" onclick="changeImage(1)">&#10095;</span>
+  </div>
+
+  <!-- Formulario de comentarios (con Formspree) -->
+  <section class="comments-section">
+    <form action="https://formspree.io/f/xzzvngag" method="POST" style="text-align: center;">
+      <input type="hidden" name="form-name" value="comentarios" />
+      <h2 id="comment-title">Comentarios:</h2>
+      <textarea name="comment" id="comment" placeholder="Escribe tu comentario aquí..." required style="width: 100%; max-width: 500px; height: 100px; padding: 10px; border: 1px solid #ccc; border-radius: 8px; margin-bottom: 10px; font-family: 'Open Sans', sans-serif;"></textarea>
+      <button type="submit" id="send-btn">Enviar</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Drywater Studio. Todos los derechos reservados.</p>
+    <p>Arte generado por IA • Envíos a todo el mundo</p>
+  </footer>
+
+  <!-- Snipcart (reemplaza con tu clave real) -->
+  <div hidden id="snipcart" data-api-key="MjUwN2JjYjUtODgzNi00ZDg5LWI0ODktMDA2NGNjNmUwMjI4NjM4OTEzNjg4NzYyMTM1Mzcw"></div>
+
+  <!-- Configuración de traducción de Snipcart -->
+  <script>
+    window.SnipcartSettings = {
+      locale: 'es',
+      themes: {
+        cart: {
+          text: {
+            es: {
+              'cart.general.title': 'Tu Carrito',
+              'cart.general.total': 'Total',
+              'cart.general.subtotal': 'Subtotal',
+              'cart.general.tax': 'Impuestos',
+              'cart.general.shipping': 'Envío',
+              'cart.general.discount': 'Descuento',
+              'cart.general.checkout': 'Finalizar compra',
+              'cart.general.continue_shopping': 'Seguir comprando',
+              'cart.item.remove': 'Eliminar',
+              'cart.item.quantity': 'Cantidad',
+              'cart.general.empty': 'Tu carrito está vacío',
+              'cart.general.close': 'Cerrar',
+              'cart.general.additions.tax': 'Incluye impuestos'
+            },
+            en: {
+              'cart.general.title': 'Your Cart',
+              'cart.general.total': 'Total',
+              'cart.general.subtotal': 'Subtotal',
+              'cart.general.tax': 'Tax',
+              'cart.general.shipping': 'Shipping',
+              'cart.general.discount': 'Discount',
+              'cart.general.checkout': 'Checkout',
+              'cart.general.continue_shopping': 'Continue shopping',
+              'cart.item.remove': 'Remove',
+              'cart.item.quantity': 'Quantity',
+              'cart.general.empty': 'Your cart is empty',
+              'cart.general.close': 'Close',
+              'cart.general.additions.tax': 'Includes tax'
+            },
+            fr: {
+              'cart.general.title': 'Votre Panier',
+              'cart.general.total': 'Total',
+              'cart.general.subtotal': 'Sous-total',
+              'cart.general.tax': 'Taxes',
+              'cart.general.shipping': 'Livraison',
+              'cart.general.discount': 'Réduction',
+              'cart.general.checkout': 'Passer la commande',
+              'cart.general.continue_shopping': 'Continuer les achats',
+              'cart.item.remove': 'Supprimer',
+              'cart.item.quantity': 'Quantité',
+              'cart.general.empty': 'Votre panier est vide',
+              'cart.general.close': 'Fermer',
+              'cart.general.additions.tax': 'Inclut les taxes'
+            },
+            ja: {
+              'cart.general.title': 'カートの中身',
+              'cart.general.total': '合計',
+              'cart.general.subtotal': '小計',
+              'cart.general.tax': '税',
+              'cart.general.shipping': '送料',
+              'cart.general.discount': '割引',
+              'cart.general.checkout': '購入手続きへ',
+              'cart.general.continue_shopping': '買い物を続ける',
+              'cart.item.remove': '削除',
+              'cart.item.quantity': '数量',
+              'cart.general.empty': 'カートは空です',
+              'cart.general.close': '閉じる',
+              'cart.general.additions.tax': '税込み'
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Scripts -->
+  <script src="https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
