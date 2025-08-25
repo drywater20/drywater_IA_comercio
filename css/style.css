@@ -1,0 +1,214 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.6;
+  color: #1e293b;
+  background: #f8fafc;
+}
+
+/* Header */
+header {
+  background: white;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 5%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+header h2 {
+  color: #2563eb;
+  font-size: 1.5rem;
+}
+nav a, #btn-carrito {
+  margin-left: 1.5rem;
+  text-decoration: none;
+  color: #475569;
+  font-weight: 500;
+}
+nav a:hover, #btn-carrito:hover {
+  color: #2563eb;
+}
+#btn-carrito {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+/* Hero */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4rem 5%;
+  gap: 2rem;
+  background: #e0f2fe;
+  border-bottom: 1px solid #bae6fd;
+}
+.hero-content h1 {
+  font-size: 2.5rem;
+  color: #0369a1;
+  margin-bottom: 1rem;
+}
+.hero-content p {
+  font-size: 1.2rem;
+  color: #083344;
+  margin-bottom: 1.5rem;
+}
+.hero-img {
+  max-width: 40%;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* Productos */
+.productos {
+  padding: 4rem 5%;
+}
+.productos h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #0369a1;
+  font-size: 2rem;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.producto {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.producto:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+.producto img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+.producto h3 {
+  color: #083344;
+  margin-bottom: 0.5rem;
+}
+.precio {
+  color: #059669;
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+}
+.btn {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background 0.3s;
+}
+.btn-add {
+  background: #2563eb;
+  color: white;
+}
+.btn-add:hover {
+  background: #1d4ed8;
+}
+.btn-primary {
+  background: #059669;
+  color: white;
+}
+.btn-primary:hover {
+  background: #047857;
+}
+
+/* Contacto */
+.contacto {
+  text-align: center;
+  padding: 4rem 5%;
+  background: #083344;
+  color: white;
+}
+.contacto h2 {
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+.contacto p {
+  font-size: 1.1rem;
+}
+
+/* Modal Carrito */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+}
+.modal-content {
+  background: white;
+  margin: 5% auto;
+  padding: 2rem;
+  width: 90%;
+  max-width: 500px;
+  border-radius: 12px;
+  position: relative;
+}
+.cerrar {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+#lista-carrito {
+  margin: 1.5rem 0;
+  max-height: 300px;
+  overflow-y: auto;
+}
+#total-carrito {
+  margin: 1.5rem 0;
+  font-size: 1.2rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
+  .hero-img {
+    max-width: 80%;
+  }
+  .hero-content p {
+    font-size: 1rem;
+  }
+  nav a, #btn-carrito {
+    margin-left: 0.8rem;
+    font-size: 0.9rem;
+  }
+}

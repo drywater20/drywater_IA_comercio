@@ -1,0 +1,53 @@
+Crea una página web completa y lista para desplegar, llamada "Drywater Art", que sea una tienda online de arte marino generado por inteligencia artificial.
+
+La página debe cumplir con los siguientes requisitos:
+
+1.  **Estructura principal:**
+    *   Un `index.html`, `style.css` y `script.js`.
+    *   Un archivo `obras.json` que contenga la lista de obras.
+    *   Una carpeta `imagenes/` con las imágenes de las obras.
+
+2.  **Contenido y datos (`obras.json`):**
+    *   Cada obra debe tener: `id`, `imagen` (ruta relativa a `imagenes/`), `titulo` (un objeto con traducciones: `es`, `en`, `fr`, `ja`), `descripcion` (un objeto con traducciones: `es`, `en`, `fr`, `ja`), y `estilo`.
+    *   El archivo `obras.json` debe cargarse dinámicamente con JavaScript.
+
+3.  **Interfaz de usuario:**
+    *   **Header:** Título principal y subtítulo traducibles.
+    *   **Selector de idioma:** Un desplegable para elegir entre Español, English, Français y 日本語. Al cambiarlo, toda la interfaz debe actualizarse.
+    *   **Filtros:** Un desplegable para filtrar obras por estilo (`peces`, `calamares`, `varios`, `otros`, `todos`).
+    *   **Galería:** Una cuadrícula de tarjetas. Cada tarjeta debe mostrar:
+        *   La imagen.
+        *   El título de la obra (en el idioma seleccionado).
+        *   La descripción de la obra (en el idioma seleccionado).
+        *   Un botón "Añadir al carrito" (el texto del botón debe traducirse: "Añadir al carrito", "Add to cart", "Ajouter au panier", "カートに追加").
+    *   **Lightbox (Zoom):** Al hacer clic en una imagen, debe abrirse un visor con:
+        *   La imagen en grande.
+        *   El título y descripción de la obra.
+        *   Un botón para añadir al carrito.
+        *   Navegación con flechas (`<`, `>`) y un botón para cerrar (`×`).
+        *   Debe funcionar con teclado (flechas y Escape).
+
+4.  **Carrito de compras:**
+    *   Usa **Snipcart** para el carrito.
+    *   El carrito debe traducirse completamente al idioma seleccionado (usa `SnipcartSettings`).
+    *   Al hacer clic en "Añadir al carrito", el carrito de Snipcart debe abrirse automáticamente (usa `data-item-open-cart="true"`).
+    *   El botón flotante del carrito debe mostrarse en la esquina superior derecha.
+
+5.  **Accesibilidad y audio:**
+    *   Solo los **títulos y descripciones de las obras** (en la galería y en el lightbox) deben ser clickeables.
+    *   Al hacer clic en un título o descripción, debe leerse en voz alta en el idioma seleccionado (usa `speechSynthesis`).
+    *   Incluye un botón "Escuchar" en la parte superior que lea el título y subtítulo principal. Este botón debe traducirse: "Escuchar", "Listen", "Écouter", "聞く".
+
+6.  **Formulario de comentarios:**
+    *   Usa **Formspree** para el formulario.
+    *   El formulario debe tener un campo de texto y un botón "Enviar" (el botón debe traducirse).
+    *   Los comentarios se enviarán a un correo.
+
+7.  **Estilo y diseño:**
+    *   Diseño limpio, moderno y responsive.
+    *   Usa Google Fonts (Montserrat para títulos, Open Sans para texto).
+    *   Colores: Azules y blancos, con acentos en azul oscuro.
+
+8.  **Entrega:**
+    *   Proporciona los 4 archivos completos: `index.html`, `style.css`, `script.js`, y `obras.json`.
+    *   Asegúrate de que el código esté libre de errores y listo para subir a Netlify.
